@@ -1,0 +1,4 @@
+To use this as your vim settings, set the following in ~/.vimrc
+
+set runtimepath+=~/vimrc/.vim
+source ~/vimrc/.vimrc

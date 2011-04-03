@@ -130,5 +130,9 @@ map <silent> <leader><cr> :noh<cr>
 
 map <F3> :NERDTreeToggle<CR><CR>
 map <F4> :TlistToggle<CR><CR>
+map <F5> :bp<CR><CR>
+map <F6> :bn<CR><CR>
+map <F7> :tabp<CR><CR>
+map <F8> :tabn<CR><CR>
 
 map <leader>cd :cd %:p:h<cr>
