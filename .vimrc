@@ -35,6 +35,8 @@ set cmdheight=2 "The commandbar height
 
 se nu
 
+set paste
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -70,19 +72,19 @@ set ffs=unix,dos,mac "Default file types
 set shiftwidth=4
 set tabstop=4
 set smarttab
+set expandtab
+set wrapmargin=80
+set colorcolumn=80
 
 set lbr
 set tw=500
 
 set ai "Auto indent
-set si "Smart indet
+set si "Smart indent
 set wrap "Wrap lines
-"Ruby
-"set tabstop=2
-"set shiftwidth=2
 "Python
-"set tabstop=3
-"set shiftwidth=3
+set tabstop=4
+set shiftwidth=4
 
 " Find file in current directory and edit it.
 function! Find(name)
