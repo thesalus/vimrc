@@ -17,6 +17,7 @@ set autoread
 " like <leader>w saves the current file
 let mapleader = ","
 let g:mapleader = ","
+set showcmd
 
 " Enable mouse usage in term
 set mouse=a
