@@ -43,6 +43,10 @@ se nu
 
 set paste
 
+set nocompatible   " Disable vi-compatibility
+set laststatus=2   " Always show the statusline
+set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -63,7 +67,7 @@ else
 
 endif
 
-set encoding=utf8
+set encoding=utf-8
 try
     lang en_US
 catch
@@ -78,7 +82,6 @@ set ffs=unix,dos,mac "Default file types
 set shiftwidth=4
 set tabstop=4
 set smarttab
-set expandtab
 set wrapmargin=80
 "set colorcolumn=80
 
@@ -88,50 +91,14 @@ set tw=500
 " Folding settings
 set foldmethod=indent       " fold based on indent
 set foldnestmax=3           " deepest fold is 3 levels
-"set nofoldenable            " dont fold by default
+set nofoldenable            " dont fold by default
 
 " Put special characaters in when tabs, leading, or trailing space are found.
-set list listchars=tab:▸\ ,trail:⋅,nbsp:⋅
-" Put special characters when wrap is off and line continues beyond right edge.
-set listchars=extends:>,precedes:<
+set list listchars=tab:▸\ ,trail:⋅,nbsp:⋅,extends:>,precedes:<
 
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
-"Python
-set tabstop=4
-set shiftwidth=4
-
-" Find file in current directory and edit it.
-function! Find(name)
-  let l:list=system("find . -name '*".substitute(a:name, ' ', '*', 'g')."*' | perl -ne 'print \"$.\\t$_\"'")
-  let l:num=strlen(substitute(l:list, "[^\n]", "", "g"))
-  if l:num < 1
-    echo "'".a:name."' not found"
-    return
-  endif
-  if l:num != 1
-    echo l:list
-    let l:input=input("Which ? (CR=nothing)\n")
-    if strlen(l:input)==0
-      return
-    endif
-    if strlen(substitute(l:input, "[0-9]", "", "g"))>0
-      echo "Not a number"
-      return
-    endif
-    if l:input<1 || l:input>l:num
-      echo "Out of range"
-      return
-    endif
-    let l:line=matchstr("\n".l:list, "\n".l:input."\t[^\n]*")
-  else
-    let l:line=l:list
-  endif
-  let l:line=substitute(l:line, "^[^\t]*\t./", "", "")
-  execute ":e ".l:line
-endfunction
-command! -nargs=1 Find :call Find("<args>")
 
 " When vimrc is edited, reload it
 autocmd! bufwritepost vimrc source ~/.vimrc
@@ -152,9 +119,17 @@ nnoremap <down> <nop>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
 
+" Switch windows with ctrl + hjkl
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
 map <F3> :NERDTreeToggle<CR><CR>
 nmap <F4> :TagbarToggle<CR>
 map <F5> :bp<CR><CR>
 map <F6> :bn<CR><CR>
 
 map <leader>cd :cd %:p:h<cr>
+
+nnoremap <leader>gs :Gstatus<CR><C-W>15+
