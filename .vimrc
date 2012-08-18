@@ -133,3 +133,9 @@ map <F6> :bn<CR><CR>
 map <leader>cd :cd %:p:h<cr>
 
 nnoremap <leader>gs :Gstatus<CR><C-W>15+
+nnoremap <leader>t :CtrlP<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Set options for plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:CommandTAlwaysShowDotFiles = 0
