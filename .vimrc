@@ -1,6 +1,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+call pathogen#infect()
 
 " Sets how many lines of history VIM has to remember
 set history=700
@@ -16,6 +17,10 @@ set autoread
 " like <leader>w saves the current file
 let mapleader = ","
 let g:mapleader = ","
+
+" Enable mouse usage in term
+set mouse=a
+set ttymouse=xterm2
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -74,10 +79,20 @@ set tabstop=4
 set smarttab
 set expandtab
 set wrapmargin=80
-set colorcolumn=80
+"set colorcolumn=80
 
 set lbr
 set tw=500
+
+" Folding settings
+set foldmethod=indent       " fold based on indent
+set foldnestmax=3           " deepest fold is 3 levels
+"set nofoldenable            " dont fold by default
+
+" Put special characaters in when tabs, leading, or trailing space are found.
+set list listchars=tab:▸\ ,trail:⋅,nbsp:⋅
+" Put special characters when wrap is off and line continues beyond right edge.
+set listchars=extends:>,precedes:<
 
 set ai "Auto indent
 set si "Smart indent
@@ -130,11 +145,15 @@ map <space> /
 map <c-space> ?
 map <silent> <leader><cr> :noh<cr>
 
+" Disable navigation via arrow keys to learn hjkl
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+
 map <F3> :NERDTreeToggle<CR><CR>
-map <F4> :TlistToggle<CR><CR>
+nmap <F4> :TagbarToggle<CR>
 map <F5> :bp<CR><CR>
 map <F6> :bn<CR><CR>
-map <F7> :tabp<CR><CR>
-map <F8> :tabn<CR><CR>
 
 map <leader>cd :cd %:p:h<cr>
