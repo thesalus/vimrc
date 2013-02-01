@@ -39,9 +39,10 @@ set ruler "Always show current position
 
 set cmdheight=2 "The commandbar height
 
-se nu
+set nu
 
 set paste
+set hlsearch "Highlight search items
 
 set nocompatible   " Disable vi-compatibility
 set laststatus=2   " Always show the statusline
@@ -139,3 +140,7 @@ nnoremap <leader>t :CtrlP<CR>
 " => Set options for plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:CommandTAlwaysShowDotFiles = 0
+
+autocmd vimenter * NERDTree
+autocmd vimenter * wincmd p
+autocmd vimenter * TagbarOpen
