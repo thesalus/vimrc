@@ -57,15 +57,12 @@ syntax enable "Enable syntax hl
 set gfn=Monospace\ 10
 set shell=/bin/bash
 
+let g:solarized_termcolors=256
+colorscheme solarized
 if has("gui_running")
-  set guioptions-=T
-  set t_Co=256
-  set background=dark
-  colorscheme peaksea
+  set background=light
 else
-  colorscheme zellner
   set background=dark
-
 endif
 
 set encoding=utf-8
