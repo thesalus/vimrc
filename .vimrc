@@ -137,7 +137,9 @@ nnoremap <leader>t :CtrlP<CR>
 " => Set options for plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:CommandTAlwaysShowDotFiles = 0
+let g:NERDTreeShowHidden = 1
 
 "autocmd vimenter * NERDTree
+autocmd vimenter * EnableGitGutter
 autocmd vimenter * wincmd p
 "autocmd vimenter * TagbarOpen
