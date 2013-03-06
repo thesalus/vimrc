@@ -1,2 +1,26 @@
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
+	ui = auto
+[color "branch"]
+	current = yellow black
+	local = yellow
+	remote = magenta
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red reverse
+	new = green reverse
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan reverse
+	branch = magenta
 [alias]
-tree=log --pretty=format:"%C(red)%h%C(yellow)%d\\ %Creset%s\\ %C(cyan)[%cn]" --graph --all --abbrev-commit --date=relative
+	tree = log --pretty=format:"%C(red)%h%C(yellow)%d\\ %Creset%s\\ %C(cyan)[%cn]" --graph --all --abbrev-commit --date=relative
+	sdiff = !git difftool --tool=vimdiff# --dir-diff
+	vmerge = !git mergetool --tool=vimdiff
+[merge]
+	ff = false

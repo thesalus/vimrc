@@ -138,6 +138,6 @@ nnoremap <leader>t :CtrlP<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:CommandTAlwaysShowDotFiles = 0
 
-autocmd vimenter * NERDTree
+"autocmd vimenter * NERDTree
 autocmd vimenter * wincmd p
-autocmd vimenter * TagbarOpen
+"autocmd vimenter * TagbarOpen
