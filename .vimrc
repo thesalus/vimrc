@@ -26,6 +26,9 @@ set ttymouse=xterm2
 " Fast saving
 nmap <leader>w :w!<cr>
 
+" Exclude files and directories
+set wildignore+=*.swp,*.zip,*.gz,*.tar,*.so
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -58,12 +61,12 @@ set gfn=Monospace\ 10
 set shell=/bin/bash
 
 let g:solarized_termcolors=256
-colorscheme solarized
 if has("gui_running")
   set background=light
 else
   set background=dark
 endif
+colorscheme solarized
 
 set encoding=utf-8
 try
@@ -138,6 +141,16 @@ nnoremap <leader>t :CtrlP<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:CommandTAlwaysShowDotFiles = 0
 let g:NERDTreeShowHidden = 1
+let g:nerdtree_tabs_open_on_console_startup = 1
+
+" ctrlp Settings
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+" Map backspace to delete character before cursor
+let g:ctrlp_prompt_mappings = {
+	\ 'PrtBS()': ['<c-h>'],
+	\ 'PrtCurLeft()': ['<left>'],
+	\ }
 
 "autocmd vimenter * NERDTree
 autocmd vimenter * EnableGitGutter

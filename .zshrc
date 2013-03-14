@@ -74,8 +74,6 @@ setopt RC_EXPAND_PARAM
 #}}}
 
 #{{{ Variables
-PATH=$PATH:/home/amok/.gem/ruby/1.9.1/bin
-
 declare -U path
 
 export LANG=en_US.UTF-8
