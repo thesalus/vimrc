@@ -23,9 +23,6 @@ set showcmd
 set mouse=a
 set ttymouse=xterm2
 
-" Fast saving
-nmap <leader>w :w!<cr>
-
 " Exclude files and directories
 set wildignore+=*.swp,*.zip,*.gz,*.tar,*.so
 
@@ -135,6 +132,8 @@ map <leader>cd :cd %:p:h<cr>
 
 nnoremap <leader>gs :Gstatus<CR><C-W>15+
 nnoremap <leader>t :CtrlP<CR>
+" Close the buffer and select the next best candidate
+nnoremap <leader>w :bp<bar>sp<bar>bn<bar>bd<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Set options for plugins
