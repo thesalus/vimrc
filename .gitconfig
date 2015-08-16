@@ -19,7 +19,8 @@
 	untracked = cyan reverse
 	branch = magenta
 [alias]
-	tree = log --pretty=format:"%C(red)%h%C(yellow)%d\\ %Creset%s\\ %C(cyan)[%cn]" --graph --all --abbrev-commit --date=relative
+	tree = log --graph --all --abbrev-commit --date=relative --pretty=format:"%C(red)%h%C(green)%d\\ %C(cyan)<%an>\\ %C(reset)%s"
+	tree2 = log --pretty=format:"%C(red)%h%C(yellow)%d\\ %Creset%s\\ %C(cyan)[%cn]" --graph --all --abbrev-commit --date=relative
 	sdiff = !git difftool --tool=vimdiff# --dir-diff
 	vmerge = !git mergetool --tool=vimdiff
 [merge]
