@@ -123,7 +123,6 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-map <F3> :NERDTreeToggle<CR><CR>
 nmap <F4> :TagbarToggle<CR>
 map <F5> :bp<CR><CR>
 map <F6> :bn<CR><CR>
@@ -140,7 +139,7 @@ nnoremap <leader>w :bp<bar>sp<bar>bn<bar>bd<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:CommandTAlwaysShowDotFiles = 0
 let g:NERDTreeShowHidden = 1
-let g:nerdtree_tabs_open_on_console_startup = 1
+let g:nerdtree_tabs_open_on_console_startup = 0
 
 " ctrlp Settings
 let g:ctrlp_working_path_mode = 0
@@ -151,7 +150,6 @@ let g:ctrlp_prompt_mappings = {
 	\ 'PrtCurLeft()': ['<left>'],
 	\ }
 
-"autocmd vimenter * NERDTree
 autocmd vimenter * EnableGitGutter
 autocmd vimenter * wincmd p
 "autocmd vimenter * TagbarOpen
