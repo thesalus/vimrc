@@ -227,8 +227,42 @@ setopt HIST_FIND_NO_DUPS
 
 #{{{ Prompt!
 
-PS1='%{%F{green}%}%@%f%}|%{%F{cyan}%}%n%{%f%}@%{%F{green}%m%f%}:%{%F{yellow}%}%~%{%f%}%{%F{red}%}%(?..[%?])%{%f%} %{%F{yellow}%}%#%{%f%} '
+#PS1='%{%F{green}%}%@%f%}|%{%F{cyan}%}%n%{%f%}@%{%F{green}%m%f%}:%{%F{yellow}%}%~%{%f%}%{%F{red}%}%(?..[%?])%{%f%} %{%F{yellow}%}%#%{%f%} '
+# %{ and %} indicates a zero-width character sequence.
 
+setopt prompt_subst
+autoload -Uz vcs_info
+
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' stagedstr '+'
+#zstyle ':vcs_info:*' stagedstr '✔'
+zstyle ':vcs_info:*' unstagedstr '✎'
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' actionformats '%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
+zstyle ':vcs_info:*' formats \
+  '%F{5}[%F{2}%b%F{5}] %F{2}%c%F{3}%u%f'
+zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
++vi-git-untracked() {
+  if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
+  [[ $(git ls-files --other --directory --exclude-standard | sed q | wc -l | tr -d ' ') == 1 ]] ; then
+    hook_com[unstaged]+='%F{1}∴%f'
+fi
+}
+
+# Here NPS1 stands for "naked PS1" and isn't a built-in shell variable. I've
+# defined it myself for PS1-PS2 alignment to operate properly.
+PS1='%{%F{green}%}%@%{%f%}|%{%F{cyan}%}%n%{%f%}@%{%F{green}%}%m%{%f%}:%{%F{yellow}%}%~%{%f%}%{%F{red}%}%(?..[%?])%{%f%} %B%f%#%b '
+NPS1='%@|%n@%m:%~%(?..[%?]) %# '
+RPS1='%B%F{green}${vcs_info_msg_0_}%f%b'
+
+# Hook function which gets executed right before shell prints prompt.
+function precmd() {
+    vcs_info
+    local expandedPrompt="$(print -P "$NPS1")"
+    local promptLength="${#expandedPrompt}"
+    PS2="> "
+    PS2="$(printf "%${promptLength}s" "$PS2")"
+}
 
 #if [[ $TERM == screen]; then
      #function precmd() {
