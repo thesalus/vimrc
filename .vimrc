@@ -24,7 +24,7 @@ set mouse=a
 set ttymouse=xterm2
 
 " Exclude files and directories
-set wildignore+=*.swp,*.zip,*.gz,*.tar,*.so
+set wildignore+=*.swp,*.zip,*.gz,*.tar,*.so,*.pyc,*~
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -39,7 +39,8 @@ set ruler "Always show current position
 
 set cmdheight=2 "The commandbar height
 
-set nu
+set number
+set cursorline
 
 set paste
 set hlsearch "Highlight search items
@@ -55,9 +56,8 @@ syntax enable "Enable syntax hl
 
 " Set font according to system
 set gfn=Monospace\ 10
-set shell=/bin/bash
+set shell=/bin/zsh
 
-let g:solarized_termcolors=256
 if has("gui_running")
   set background=light
 else
@@ -102,6 +102,7 @@ set wrap "Wrap lines
 autocmd! bufwritepost vimrc source ~/.vimrc
 
 set showmatch "Show matching bracets when text indicator is over them
+set bs=indent,eol,start     " Backspace over everything in insert mode
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs and buffers

@@ -2,6 +2,7 @@
 
 1. Grab git submodules
 
+        git submodule init
         git submodule update
 
 2. To use this as your vim settings, set the following in ~/.vimrc

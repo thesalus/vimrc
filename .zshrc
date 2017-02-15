@@ -1,8 +1,4 @@
 # Autoload screen if we aren't in it.  (Thanks Fjord!)
-#if [[ $STY = '' ]] then screen -xR; fi
-if [[ -z $DISPLAY ]] && ! [[ -e /tmp.X11-unix/X0 ]] && (( EUID )); then
-  exec startx
-fi
 
 autoload -U colors && colors
 
@@ -80,6 +76,8 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.utf-8
 export LC_TYPE=en_US.utf-8
 export PAGER=less
+
+export TZ="/usr/share/zoneinfo/America/Vancouver"
 #}}}
 
 #{{{ External Files
