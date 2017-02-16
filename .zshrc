@@ -227,73 +227,69 @@ setopt HIST_FIND_NO_DUPS
 
 #{{{ Prompt!
 
-#PS1='%{%F{green}%}%@%f%}|%{%F{cyan}%}%n%{%f%}@%{%F{green}%m%f%}:%{%F{yellow}%}%~%{%f%}%{%F{red}%}%(?..[%?])%{%f%} %{%F{yellow}%}%#%{%f%} '
-# %{ and %} indicates a zero-width character sequence.
-
+### Git
 setopt prompt_subst
 autoload -Uz vcs_info
 
+GIT_PROMPT_LB="%{$bg[black]%} %{$reset_color%}"
+GIT_PROMPT_RB="%{$bg[black]%} %{$reset_color%}"
+GIT_PROMPT_BRANCH="%{$bg[white]%}%{$fg_bold[black]%} %b %{$reset_color%}"
+GIT_PROMPT_ACTION="%{$bg[purple]%}%{$fg_bold[white]%} %a %{$reset_color%}"
+GIT_PROMPT_CLEAN="%{$fg_bold[green]%}✔%{$reset_color%}" # can this work?
+GIT_PROMPT_STAGED="%{$bg[green]%}%{$fg_bold[black]%} ± %{$reset_color%}"
+GIT_PROMPT_UNSTAGED="%{$bg[yellow]%}%{$fg_bold[black]%} ✎ %{$reset_color%}"
+GIT_PROMPT_UNTRACKED="%{$bg[red]%}%{$fg_bold[black]%} ∴ %{$reset_color%}"
+
 zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:*' stagedstr '+'
-#zstyle ':vcs_info:*' stagedstr '✔'
-zstyle ':vcs_info:*' unstagedstr '✎'
+zstyle ':vcs_info:*' stagedstr $GIT_PROMPT_STAGED
+zstyle ':vcs_info:*' unstagedstr $GIT_PROMPT_UNSTAGED
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' actionformats '%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
+zstyle ':vcs_info:*' actionformats \
+  "$GIT_PROMPT_LB$GIT_PROMPT_BRANCH$GIT_PROMPT_ACTION$GIT_PROMPT_RB%f"
 zstyle ':vcs_info:*' formats \
-  '%F{5}[%F{2}%b%F{5}] %F{2}%c%F{3}%u%f'
+  "$GIT_PROMPT_LB$GIT_PROMPT_BRANCH%c%u$GIT_PROMPT_RB%f"
 zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
 +vi-git-untracked() {
   if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
   [[ $(git ls-files --other --directory --exclude-standard | sed q | wc -l | tr -d ' ') == 1 ]] ; then
-    hook_com[unstaged]+='%F{1}∴%f'
-fi
+    hook_com[unstaged]+=$GIT_PROMPT_UNTRACKED
+  fi
 }
 
 # Here NPS1 stands for "naked PS1" and isn't a built-in shell variable. I've
 # defined it myself for PS1-PS2 alignment to operate properly.
-PS1='%{%F{green}%}%@%{%f%}|%{%F{cyan}%}%n%{%f%}@%{%F{green}%}%m%{%f%}:%{%F{yellow}%}%~%{%f%}%{%F{red}%}%(?..[%?])%{%f%} %B%f%#%b '
-NPS1='%@|%n@%m:%~%(?..[%?]) %# '
-RPS1='%B%F{green}${vcs_info_msg_0_}%f%b'
+_1LEFT='%{%F{cyan}%}%n%{%f%}@%{%F{green}%}%m%{%f%}:%{%F{yellow}%}%~%{%f%}%{%F{red}%}%(?..[%?])%{%f%}'
+NPS1='%n@%m:%~%(?..[%?])'
+_1RIGHT='[%*]'
+
+PROMPT='> %# '
+RPROMPT='%F{green}${vcs_info_msg_0_}%f'
 
 # Hook function which gets executed right before shell prints prompt.
 function precmd() {
     vcs_info
-    local expandedPrompt="$(print -P "$NPS1")"
-    local promptLength="${#expandedPrompt}"
-    PS2="> "
-    PS2="$(printf "%${promptLength}s" "$PS2")"
+    local expandedPrompt="$(print -P "$NPS1$_1RIGHT")"
+    _1SPACES=`get_space ${expandedPrompt}`
+    print
+    print -rP "$_1LEFT$_1SPACES$_1RIGHT"
 }
 
-#if [[ $TERM == screen]; then
-     #function precmd() {
-          #print -Pn "\033]0;S $TTY:t{%100<...<%~%<<}\007"
-             #}
-#elsif [[ $TERM == linux ]]; then
-    #precmd () { print -Pn "\e]0;%m: %~\a" }
-#fi
+get_space () {
+  local STR=$1$2
+  local zero='%([BSUbfksu]|([FB]|){*})'
+  local LENGTH=${#${(S%%)STR//$~zero/}}
+  local SPACES=""
+  (( LENGTH = ${COLUMNS} - $LENGTH - 2))
+  for i in {0..$LENGTH}
+    do
+      SPACES="$SPACES "
+    done
+  echo $SPACES
+}
 
 #}}}
 
 #{{{ Functions
-
-#function vi {
-        #LIMIT=$#
-        #for ((i = 1; i <= $LIMIT; i++ )) do
-                #eval file="\$$i"
-                #if [[ -e $file && ! -O $file ]]
-                #then
-                        #otherfile=1
-                #else
-
-                #fi
-        #done
-        #if [[ $otherfile = 1 ]]
-        #then
-                #command sudo vi "$@"
-        #else
-                #command vi "$@"
-        #fi
-#}
 
 _force_rehash() {
   (( CURRENT == 1 )) && rehash
