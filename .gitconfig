@@ -1,5 +1,7 @@
 [core]
+	autocrlf = false
 	excludesfile = '.gitignore'
+	pager = delta
 [color]
 	diff = auto
 	status = auto
@@ -25,5 +27,12 @@
 	tree2 = log --pretty=format:"%C(red)%h%C(yellow)%d\\ %Creset%s\\ %C(cyan)[%cn]" --graph --all --abbrev-commit --date=relative
 	sdiff = !git difftool --tool=vimdiff# --dir-diff
 	vmerge = !git mergetool --tool=vimdiff
+[diff]
+	algorithm = histogram
+[interactive]
+	diffFilter = delta --color-only
 [merge]
 	ff = false
+	conflictstyle = zdiff3
+[rebase]
+	autostash = true
